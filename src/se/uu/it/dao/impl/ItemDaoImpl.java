@@ -26,7 +26,7 @@ public class ItemDaoImpl implements ItemDao {
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,item.getName());
-			pstmt.setInt(2,item.getPrice());
+			pstmt.setFloat(2,item.getPrice());
 			pstmt.setInt(3,item.getStock());
 			pstmt.executeUpdate();
 			conn.commit();
@@ -55,7 +55,7 @@ public class ItemDaoImpl implements ItemDao {
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,item.getName());
-			pstmt.setInt(2,item.getPrice());
+			pstmt.setFloat(2,item.getPrice());
 			pstmt.setInt(3,item.getStock());
 			pstmt.setInt(4, item.getId());
 			pstmt.executeUpdate();

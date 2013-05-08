@@ -3,7 +3,7 @@ package se.uu.it.bean;
 public class ItemBean {
 	private int id;
 	private String name;
-	private int price;
+	private float price;
 	private int stock;
 	public int getId() {
 		return id;
@@ -17,10 +17,10 @@ public class ItemBean {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getPrice() {
+	public float getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(float price) {
 		this.price = price;
 	}
 	public int getStock() {

@@ -35,9 +35,9 @@ public class RegisterServlet extends HttpServlet {
 		s.setAttribute("login", true);
 		RequestDispatcher rd = null; 
 		ServletContext sc = getServletContext(); 
-        rd = sc.getRequestDispatcher("/index.jsp");    
-        rd.forward(request, response); 
-		//request.getRequestDispatcher("/NewFile.html").forward(request, response);
+                                                    rd = sc.getRequestDispatcher("/index.jsp");    
+                                                    rd.forward(request, response); 
+		
 	}
 
 	/**
