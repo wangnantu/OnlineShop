@@ -29,4 +29,24 @@ public class ItemBean {
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
+                           
+        public String getXml(){
+            StringBuffer xmlOut = new StringBuffer();
+            xmlOut.append("<item>");
+            xmlOut.append("<id>");
+            xmlOut.append(id);
+            xmlOut.append("</id>");
+            xmlOut.append("<name><![CDATA[");
+            xmlOut.append(name);
+            xmlOut.append("]]></name>");
+            xmlOut.append("<price>");
+            xmlOut.append(price);
+            xmlOut.append("</price>");
+            xmlOut.append("<stock>");
+            xmlOut.append(stock);
+            xmlOut.append("</stock>");
+            xmlOut.append("</item>");
+            
+            return xmlOut.toString();
+        }
 }

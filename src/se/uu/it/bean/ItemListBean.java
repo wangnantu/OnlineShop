@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -67,8 +68,36 @@ public class ItemListBean {
         }
         
     }
+    //return the itemList
     public ArrayList<ItemBean>  getItemList(){
         return itemList;
+    }
+    
+    //create an XML file from the itemList
+    
+    public String getXml(){
+        ItemBean item = null;
+        Iterator it = itemList.iterator();
+        StringBuffer buff = new StringBuffer();
+        buff.append("<itemlist>");
+        while(it.hasNext()){
+            item = (ItemBean)it.next();
+            buff.append(item.getXml());
+        }
+        buff.append("</itemlist>");
+        
+        return buff.toString();
+        
+    }
+    
+     public static void main(String[] args){
+        try{
+	    ItemListBean ilb = new ItemListBean();
+	    System.out.println(ilb.getXml());
+        }
+        catch(Exception e){
+	    System.out.println(e.getMessage());
+        }
     }
     
 }
