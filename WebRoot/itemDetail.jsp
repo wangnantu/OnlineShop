@@ -4,6 +4,8 @@
     Author     : wnt
 --%>
 
+
+<%@page import="se.uu.it.bean.ItemBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,26 +15,30 @@
         
     </head>
     <body>
-       <form method="POST" action="/OnlineShop/servlet/AddServlet">
+          <%
+            ItemBean item = (ItemBean)  request.getAttribute("item");
+            %>
+        <form method="POST" action="item.html?action=update&id=${item.getId()}">
             <table border="0" cellspacing="5" align="center">
     <tr>
+       
       <td colspan="2" bgcolor="#FFDC75"align="center">
           <h2>Item Detail</td> </h2>
     </tr>
     <tr>
       <th align="right">Name:</th>
-      <td align="left"><input type="text" name="name"></td>
+      <td align="left"><input type="text" name="name" value="${item.getName()}"></td>
     </tr>
     <tr>
       <th align="right">Price:</th>
-      <td align="left"><input type="text" name="price"></td>
+      <td align="left"><input type="text" name="price" value="${item.getPrice()}"></td>
     </tr>
     <tr>
       <th align="right">Stock:</th>
-      <td align="left"><input type="text" name="stock"></td>
+      <td align="left"><input type="text" name="stock" value="${item.getStock()}"></td>
     </tr>
     <tr>
-      <td align="right"><input type="submit" value="Add"></td>
+      <td align="right"><input type="submit" value="Update"></td>
     </tr>
         </form>
     </body>

@@ -72,9 +72,43 @@ public class ItemDaoImpl implements ItemDao {
 		}
 		
 	}
-
-	public void delete(ItemBean item) {
-		String sql = "delete from item where id = ?";
+                          
+                          public ItemBean getItemById(int id){
+                                                      String sql = "select name, price, stock from item where id =?";
+                                                      DBUtil util = new DBUtil();
+                                                      Connection conn = util.getConnection();
+                                                      try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,id);
+			ResultSet rs = pstmt.executeQuery();
+                                                                              while(rs.next()){
+				String name = rs.getString(1);
+				float price = rs.getFloat(2);
+				int stock = rs.getInt(3);
+				ItemBean item = new ItemBean();
+                                                                                                        item.setId(id);
+				item.setName(name);
+				item.setPrice(price);
+				item.setStock(stock);
+                                                                                                        return item;
+                                                                              }
+			conn.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}finally{
+			util.closeConnection(conn);
+		}
+                                                      return null;
+                              
+                          }
+        
+                          public void delete(int id){
+                              String sql = "delete from item where id = ?";
 		DBUtil util = new DBUtil();
 		Connection conn = util.getConnection();
 		try {
@@ -84,7 +118,7 @@ public class ItemDaoImpl implements ItemDao {
 		}
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1,item.getId());
+			pstmt.setInt(1,id);
 			pstmt.executeUpdate();
 			conn.commit();
 		} catch (SQLException e) {
@@ -97,7 +131,7 @@ public class ItemDaoImpl implements ItemDao {
 		}finally{
 			util.closeConnection(conn);
 		}
-	}
+                          }
 
 	public List<ItemBean> list() {
 		String sql = "select * from item";
@@ -110,7 +144,7 @@ public class ItemDaoImpl implements ItemDao {
 			while(rs.next()){
 				int id = rs.getInt(1);
 				String name = rs.getString(2);
-				int price = rs.getInt(3);
+				float price = rs.getFloat(3);
 				int stock = rs.getInt(4);
 				ItemBean item = new ItemBean();
 				item.setId(id);

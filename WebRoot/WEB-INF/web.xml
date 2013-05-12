@@ -9,8 +9,8 @@
         <servlet-class>se.uu.it.servlet.LoginServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddServlet</servlet-name>
-        <servlet-class>se.uu.it.servlet.AddServlet</servlet-class>
+        <servlet-name>ItemServlet</servlet-name>
+        <servlet-class>se.uu.it.servlet.ItemServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
@@ -21,8 +21,8 @@
         <url-pattern>/servlet/LoginServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddServlet</servlet-name>
-        <url-pattern>/servlet/AddServlet</url-pattern>
+        <servlet-name>ItemServlet</servlet-name>
+        <url-pattern>/item.html</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

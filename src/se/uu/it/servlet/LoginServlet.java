@@ -36,7 +36,12 @@ public class LoginServlet extends HttpServlet {
 		}else{
 			System.out.print("Fail");
 		}
-		request.getRequestDispatcher("/index.jsp").forward(request, response);
+                                                    if(username.equals("admin")){
+                                                       response.sendRedirect("/OnlineShop/admin.jsp");
+                                                    }else{
+                                                        response.sendRedirect("/OnlineShop/main.jsp");
+                                                    }
+		
 	}
 
 	/**

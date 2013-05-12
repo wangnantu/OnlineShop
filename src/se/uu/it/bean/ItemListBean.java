@@ -19,6 +19,7 @@ public class ItemListBean {
     
     private String url = null;
     private  ArrayList itemList;
+    private String xml;
     
       public ItemListBean() throws Exception{
       this("jdbc:mysql://localhost:3306/webshop?user=root&password=hjkl;'");
@@ -76,17 +77,18 @@ public class ItemListBean {
     //create an XML file from the itemList
     
     public String getXml(){
-        ItemBean item = null;
+        //ItemBean item = null;
         Iterator it = itemList.iterator();
         StringBuffer buff = new StringBuffer();
         buff.append("<itemlist>");
         while(it.hasNext()){
+            ItemBean item;
             item = (ItemBean)it.next();
             buff.append(item.getXml());
         }
         buff.append("</itemlist>");
-        
-        return buff.toString();
+        xml = buff.toString();
+        return xml;
         
     }
     

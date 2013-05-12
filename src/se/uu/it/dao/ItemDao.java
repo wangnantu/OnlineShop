@@ -8,6 +8,9 @@ public interface ItemDao {
 
 	public void save(ItemBean item);
 	public void update(ItemBean item);
-	public void delete(ItemBean item);
+                          public ItemBean getItemById(int id);
+	public void delete(int id);
 	public List<ItemBean> list();
+                        
+   
 }
