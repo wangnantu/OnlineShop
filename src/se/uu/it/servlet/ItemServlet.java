@@ -46,10 +46,10 @@ public class ItemServlet extends HttpServlet {
     
         public void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
                                                     ItemDao dao = new ItemDaoImpl();
-		RequestDispatcher rd = null; 
-		ServletContext sc = getServletContext(); 
                                                     List<ItemBean> list = dao.list();
                                                     request.setAttribute("itemList", list);
+                                                    RequestDispatcher rd = null; 
+		ServletContext sc = getServletContext(); 
                                                    rd = sc.getRequestDispatcher("/itemList.jsp");    
                                                    rd.forward(request, response); 
         }
