@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import se.uu.it.bean.ProductBean;
 import se.uu.it.dao.ProductDao;
@@ -75,7 +74,81 @@ public class ProductDaoImpl  implements ProductDao  {
     public void update(ProductBean product,List<String> list) {
            int id = product.getId();
            String sql = " update product set name=?, price=? where id = ?";
-           
+           DBUtil util = new DBUtil();
+            Connection conn = util.getConnection();
+	try {
+                                        conn.setAutoCommit(false);
+	        } catch (SQLException e2) {
+		e2.printStackTrace();
+		}
+	try {
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1,product.getName());
+		pstmt.setFloat(2,product.getPrice());
+                                                    pstmt.setInt(3,id);
+                                                    pstmt.executeUpdate();
+		conn.commit();
+	         } catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+                                                    }
+            List<Integer> componentsOld = this.getComponentsByProductId(id);
+            List<Integer> componentsNew = new ArrayList<Integer>();
+            for(int i=0;i<list.size();i++ ){
+                int num = Integer.parseInt(list.get(i));
+                componentsNew.add(num);
+            }            
+            List<Integer> componentsNew2 = new ArrayList<Integer>(componentsNew);
+            
+            componentsNew.removeAll(componentsOld);
+            
+            for(int i = 0;i<componentsNew.size();i++ ){
+                String sql3 = " insert into product_item (product_id,item_id) values (?,?)";
+                int item_id = componentsNew.get(i);
+             try {
+                PreparedStatement pstmt2 = conn.prepareStatement(sql3);
+                pstmt2.setInt(1,id);
+                pstmt2.setInt(2, item_id);
+                pstmt2.executeUpdate();
+                conn.commit();
+                
+            } catch (SQLException ex) {
+                   ex.printStackTrace();
+                    try {
+                        conn.rollback();
+                    } catch (SQLException ex1) {
+                        ex1.printStackTrace();
+                    } 
+                                                                  
+                }
+            }
+            
+            componentsOld.removeAll(componentsNew2);
+            for(int i = 0;i<componentsOld.size();i++ ){
+                String sql4 = " delete from product_item where product_id =? and  item_id = ? ";
+                int item_id = componentsOld.get(i);
+                try {
+                PreparedStatement pstmt2 = conn.prepareStatement(sql4);
+                pstmt2.setInt(1,id);
+                pstmt2.setInt(2, item_id);
+                pstmt2.executeUpdate();
+                conn.commit();
+                
+            } catch (SQLException ex) {
+                   ex.printStackTrace();
+                    try {
+                        conn.rollback();
+                    } catch (SQLException ex1) {
+                        ex1.printStackTrace();
+                    } 
+                                                                  
+                }
+            }
+            util.closeConnection(conn);
     }
 
     public ProductBean getProductById(int id) {
@@ -130,6 +203,30 @@ public class ProductDaoImpl  implements ProductDao  {
 	}
 
     public void delete(int id) {
+               String sql = " delete from product_item where product_id =? ";
+               String sql2 = " delete from product where id = ? ";
+               DBUtil util = new DBUtil();
+               Connection conn = util.getConnection();
+     try {
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1,id);
+                pstmt.executeUpdate();
+                pstmt = conn.prepareStatement(sql2);
+                pstmt.setInt(1,id);
+                pstmt.executeUpdate();
+                conn.commit();
+                
+            } catch (SQLException ex) {
+                   ex.printStackTrace();
+                    try {
+                        conn.rollback();
+                    } catch (SQLException ex1) {
+                        ex1.printStackTrace();
+                    }                                            
+                }finally{
+         util.closeConnection(conn);
+     }
+     
     }
 
     public List<ProductBean> list() {

@@ -37,8 +37,8 @@ public class ProductServlet extends HttpServlet {
                                         this.get(request, response);
                                      }else if(action != null &&action.equals("update")){
                                          this.update(request, response);
-//                                     }else if(action != null &&action.equals("delete")){
-//                                         this.delete(request, response);
+                                     }else if(action != null &&action.equals("delete")){
+                                         this.delete(request, response);
                                      }
 	}
 
@@ -97,6 +97,30 @@ public class ProductServlet extends HttpServlet {
                                                   rd.forward(request, response); 
         }
         public void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            
+                                                  int id = Integer.parseInt(request.getParameter("id"));   
+                                                  String name = request.getParameter("name");
+                                                  Float price = Float.valueOf((String)request.getParameter("price"));
+                                                  String[] components = request.getParameterValues("components");
+                                                  List list = Arrays.asList(components);
+                                                  ProductBean product = new ProductBean();
+                                                  product.setId(id);
+                                                  product.setName(name);
+                                                  product.setPrice(price);
+                                                  ProductDao dao = new ProductDaoImpl();
+                                                  dao.update(product,list);
+                                                   RequestDispatcher rd = null; 
+                                                  ServletContext sc = getServletContext(); 
+                                                  rd = sc.getRequestDispatcher("/product.html?action=list");    
+                                                  rd.forward(request, response); 
+        }
+
+    private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+                                                 int id = Integer.parseInt(request.getParameter("id")); 
+                                                 ProductDao dao = new ProductDaoImpl();
+                                                 dao.delete(id);
+                                                 RequestDispatcher rd = null; 
+                                                  ServletContext sc = getServletContext(); 
+                                                  rd = sc.getRequestDispatcher("/product.html?action=list");    
+                                                  rd.forward(request, response); 
         }
 }

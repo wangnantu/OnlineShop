@@ -13,7 +13,7 @@
         <title>Product Detail</title>
     </head>
     <body>
-        <form method="POST" action="product.html?action=update&id=${item.getId()}">
+        <form method="POST" action="product.html?action=update&id=${product.getId()}">
             <table border="0" cellspacing="5" align="center">
     <tr>
       <td colspan="2" bgcolor="#FFDC75"align="center">
