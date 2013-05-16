@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import se.uu.it.bean.ProductBean;
 import se.uu.it.dao.ProductDao;
@@ -36,21 +37,17 @@ public class ProductDaoImpl  implements ProductDao  {
 			pstmt.setFloat(2,product.getPrice());
 			pstmt.executeUpdate();
 			conn.commit();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-                }
-            for (String item_name : list) {
-                String sql2 = " insert into product_item (product_name,item_name) values (?,?)";
-                try {
-                PreparedStatement pstmt1 = conn.prepareStatement(sql2);
-                pstmt1.setString(1,product.getName());
-                pstmt1.setString(2, item_name);
-                pstmt1.executeUpdate();
+		
+                
+                   int product_id = this.getProductIdByName(product.getName());
+            for(int i = 0;i<list.size();i++ ){
+                String sql3 = " insert into product_item (product_id,item_id) values (?,?)";
+                int item_id = Integer.parseInt(list.get(i));
+             try {
+                PreparedStatement pstmt2 = conn.prepareStatement(sql3);
+                pstmt2.setInt(1,product_id);
+                pstmt2.setInt(2, item_id);
+                pstmt2.executeUpdate();
                 conn.commit();
                 
             } catch (SQLException ex) {
@@ -59,12 +56,19 @@ public class ProductDaoImpl  implements ProductDao  {
                         conn.rollback();
                     } catch (SQLException ex1) {
                         ex1.printStackTrace();
-                    } finally{
-	util.closeConnection(conn);
-		}
+                    } 
                                                                   
                 }
             }
+            } catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+                }
+        util.closeConnection(conn);
        
     }
 
@@ -105,18 +109,18 @@ public class ProductDaoImpl  implements ProductDao  {
                                                       return null;
     }
     
-    public List<String> getComponentsByProductName(String name){
-        String sql = " select item_name from product_item where product_name = ? ";
+    public List<Integer> getComponentsByProductId(int id){
+        String sql = " select item_id from product_item where product_id = ? ";
         DBUtil util = new DBUtil();
         Connection conn = util.getConnection();
         try {
                           PreparedStatement pstmt = conn.prepareStatement(sql);
-	pstmt.setString(1,name);
+	pstmt.setInt(1,id);
 	ResultSet rs = pstmt.executeQuery();
-                          ArrayList<String> componentList = new ArrayList<String>();
+                          ArrayList<Integer> componentList = new ArrayList<Integer>();
                              while(rs.next()){
-                                 String itemName = rs.getString(1);
-                                 componentList.add(itemName);
+                                 int item_id = rs.getInt(1);
+                                 componentList.add(item_id);
                              }
                              return componentList;
             }catch (SQLException e) {
@@ -155,4 +159,23 @@ public class ProductDaoImpl  implements ProductDao  {
         return null;
     }
     
+    public Integer getProductIdByName(String name){
+        String sql2 = " select id from product where name = ?";
+        DBUtil util = new DBUtil();
+        Connection conn = util.getConnection();
+        try {
+                PreparedStatement pstmt1 = conn.prepareStatement(sql2);
+                pstmt1.setString(1,name);
+                ResultSet rs = pstmt1.executeQuery();
+                int product_id = 0;
+                while(rs.next()){
+                product_id = rs.getInt(1);
+                return product_id;
+                }
+                 }catch (SQLException e) {
+                   e.printStackTrace();
+                    }
+                    return null;
+                }
+      
 }

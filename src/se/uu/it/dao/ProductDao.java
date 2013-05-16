@@ -15,7 +15,7 @@ public interface ProductDao {
                           public void save(ProductBean product,List<String> list);
 	public void update(ProductBean product,List<String> list);
                           public ProductBean getProductById(int id);
-                           public List<String> getComponentsByProductName(String name);
+                           public List<Integer> getComponentsByProductId(int id);
 	public void delete(int id);
 	public List<ProductBean> list();
 }

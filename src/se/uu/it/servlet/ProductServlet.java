@@ -76,7 +76,7 @@ public class ProductServlet extends HttpServlet {
                                                   dao.save(product,list);
                                                   RequestDispatcher rd = null; 
                                                   ServletContext sc = getServletContext(); 
-                                                  rd = sc.getRequestDispatcher("/product.html");    
+                                                  rd = sc.getRequestDispatcher("/product.html?action=list");    
                                                   rd.forward(request, response); 
         }
         public void get(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -84,8 +84,8 @@ public class ProductServlet extends HttpServlet {
                                                  ProductDao dao = new ProductDaoImpl();
                                                  ProductBean product = new ProductBean();
                                                  product=dao.getProductById(id);
-                                                 List<String> components = new ArrayList<String>();
-                                                components = dao.getComponentsByProductName(product.getName());
+                                                 List<Integer> components = new ArrayList<Integer>();
+                                                components = dao.getComponentsByProductId(id);
                                                  request.setAttribute("product", product);
                                                  request.setAttribute("components", components);
                                                  ItemDao idao = new ItemDaoImpl();

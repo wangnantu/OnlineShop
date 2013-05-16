@@ -34,11 +34,11 @@
               <c:forEach var="item" items="${itemList}" varStatus="status">
                       ${item.name}
                       <c:choose>
-                         <c:when test = "${components.contains(item.name)}">
-                            <input type="checkbox" name="components" value="${item.name}"  checked>
+                         <c:when test = "${components.contains(item.id)}">
+                            <input type="checkbox" name="components" value="${item.id}"  checked>
                         </c:when>
                         <c:otherwise>
-                          <input type="checkbox" name="components" value="${item.name}"  />
+                          <input type="checkbox" name="components" value="${item.id}"  />
                         </c:otherwise>
                       </c:choose>
                   <c:if test="${status.count%2==0}"><br/></c:if>
