@@ -100,28 +100,28 @@ public class ProductBean {
         return componentsList;
     }
     
-    public String getXml(){
-        StringBuffer xmlOut = new StringBuffer();
-         xmlOut.append("<product>");
-         xmlOut.append("<id>");
-         xmlOut.append(id);
-         xmlOut.append("</id>");
-         xmlOut.append("<name>");               
-         xmlOut.append(name);
-         xmlOut.append("</name>");
-         xmlOut.append("<price>");
-         xmlOut.append(price);
-         xmlOut.append("</price>");
-         
-         Iterator it = componentsList.iterator();
-          while(it.hasNext()){
-         xmlOut.append("<component>");
-         xmlOut.append((String)it.next());
-         xmlOut.append("</component>");
-          }
-          xmlOut.append("<product>");
-        return xmlOut.toString();
-        
-    }
+//    public String getXml(){
+//        StringBuffer xmlOut = new StringBuffer();
+//         xmlOut.append("<product>");
+//         xmlOut.append("<id>");
+//         xmlOut.append(id);
+//         xmlOut.append("</id>");
+//         xmlOut.append("<name>");               
+//         xmlOut.append(name);
+//         xmlOut.append("</name>");
+//         xmlOut.append("<price>");
+//         xmlOut.append(price);
+//         xmlOut.append("</price>");
+//         
+//         Iterator it = componentsList.iterator();
+//          while(it.hasNext()){
+//         xmlOut.append("<component>");
+//         xmlOut.append((String)it.next());
+//         xmlOut.append("</component>");
+//          }
+//          xmlOut.append("<product>");
+//        return xmlOut.toString();
+//        
+//    }
     
 }

@@ -14,6 +14,8 @@
     <body>
         Welcome, <%= session.getAttribute("username") %>
         <br>
-        <a href="item.html" >Item</a>
+        <a href="item.html" >Item Manage</a>
+        <br>
+        <a href="product.html">Product Manage</a>
     </body>
 </html>

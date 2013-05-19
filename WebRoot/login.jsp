@@ -26,6 +26,9 @@
       <td align="center"><input type="submit" value="OK"></td>
       <td align="center"><input type="reset" value="Cancel"></td>
     </tr>
+    <tr>
+        <td align="center"><a href="register.jsp" >Sign Up</a></td>
+    </tr>
   </table>
 
 </form>

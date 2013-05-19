@@ -19,7 +19,6 @@ public class ItemListBean {
     
     private String url = null;
     private  ArrayList itemList;
-    private String xml;
     
       public ItemListBean() throws Exception{
       this("jdbc:mysql://localhost:3306/webshop?user=root&password=hjkl;'");
@@ -74,32 +73,32 @@ public class ItemListBean {
         return itemList;
     }
     
-    //create an XML file from the itemList
-    
-    public String getXml(){
-        //ItemBean item = null;
-        Iterator it = itemList.iterator();
-        StringBuffer buff = new StringBuffer();
-        buff.append("<itemlist>");
-        while(it.hasNext()){
-            ItemBean item;
-            item = (ItemBean)it.next();
-            buff.append(item.getXml());
-        }
-        buff.append("</itemlist>");
-        xml = buff.toString();
-        return xml;
-        
-    }
-    
-     public static void main(String[] args){
-        try{
-	    ItemListBean ilb = new ItemListBean();
-	    System.out.println(ilb.getXml());
-        }
-        catch(Exception e){
-	    System.out.println(e.getMessage());
-        }
-    }
-    
+//    //create an XML file from the itemList
+//    
+//    public String getXml(){
+//        //ItemBean item = null;
+//        Iterator it = itemList.iterator();
+//        StringBuffer buff = new StringBuffer();
+//        buff.append("<itemlist>");
+//        while(it.hasNext()){
+//            ItemBean item;
+//            item = (ItemBean)it.next();
+//            buff.append(item.getXml());
+//        }
+//        buff.append("</itemlist>");
+//        xml = buff.toString();
+//        return xml;
+//        
+//    }
+//    
+//     public static void main(String[] args){
+//        try{
+//	    ItemListBean ilb = new ItemListBean();
+//	    System.out.println(ilb.getXml());
+//        }
+//        catch(Exception e){
+//	    System.out.println(e.getMessage());
+//        }
+//    }
+//    
 }

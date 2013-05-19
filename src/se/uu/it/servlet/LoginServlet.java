@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import se.uu.it.dao.UserDao;
 import se.uu.it.dao.impl.UserDaoImpl;
@@ -32,7 +33,9 @@ public class LoginServlet extends HttpServlet {
 		UserDao dao = new UserDaoImpl();
 		String DBPassword = dao.getPasswordFromUser(username);
 		if(password.equals(DBPassword)){
-			System.out.print("Login Success");
+			HttpSession s=request.getSession();
+                                                                              s.setAttribute("username", username);
+		                          s.setAttribute("login", true);
 		}else{
 			System.out.print("Fail");
 		}

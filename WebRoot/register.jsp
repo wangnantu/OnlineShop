@@ -12,7 +12,7 @@
   <table border="0" cellspacing="5" align="center">
     <tr>
       <td colspan="2" bgcolor="#FFDC75"align="center">
-          <h2>Sign in</td> </h2>
+          <h2>Sign Up</td> </h2>
     </tr>
     <tr><td colspan="2"></td></tr>
     <tr>

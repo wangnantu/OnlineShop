@@ -75,28 +75,28 @@ public class ProductListBean {
     }
     
     //create an XML file from productList
-    public String getXml(){
-        ProductBean product = null;
-        Iterator it = productList.iterator();
-        StringBuffer buff = new StringBuffer();
-        buff.append("<productlist>");
-        while(it.hasNext()){
-            product = (ProductBean)it.next();
-              buff.append(product.getXml());
-        }
-          buff.append("</productlist>");
-          
-        return buff.toString();
-    }
+//    public String getXml(){
+//        ProductBean product = null;
+//        Iterator it = productList.iterator();
+//        StringBuffer buff = new StringBuffer();
+//        buff.append("<productlist>");
+//        while(it.hasNext()){
+//            product = (ProductBean)it.next();
+//              buff.append(product.getXml());
+//        }
+//          buff.append("</productlist>");
+//          
+//        return buff.toString();
+//    }
     
-     public static void main(String[] args){
-        try{
-	   ProductListBean plb = new ProductListBean();
-	    System.out.println(plb.getXml());
-        }
-        catch(Exception e){
-	    System.out.println(e.getMessage());
-        }
-    }
+//     public static void main(String[] args){
+//        try{
+//	   ProductListBean plb = new ProductListBean();
+//	    System.out.println(plb.getXml());
+//        }
+//        catch(Exception e){
+//	    System.out.println(e.getMessage());
+//        }
+//    }
     
 }
