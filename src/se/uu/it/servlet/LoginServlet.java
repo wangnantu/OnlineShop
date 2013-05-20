@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
                                                     if(username.equals("admin")){
                                                        response.sendRedirect("/OnlineShop/admin.jsp");
                                                     }else{
-                                                        response.sendRedirect("/OnlineShop/main.jsp");
+                                                        response.sendRedirect("/OnlineShop/shopping.html");
                                                     }
 		
 	}

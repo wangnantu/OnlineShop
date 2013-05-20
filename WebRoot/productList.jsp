@@ -1,5 +1,5 @@
 <%-- 
-    Document   : AddProduct
+    Document   : ProductList
     Created on : 2013-5-12, 23:02:37
     Author     : wnt
 --%>
@@ -46,8 +46,8 @@
         <hr/>
         <table border="0" cellspacing="5" align="center">
             <tr>
-                <td>Name</td>
-                <td>Price</td>
+                <th>Name</td>
+                <th>Price</td>
             </tr>
             
                 <c:forEach var="product" items="${productList}">

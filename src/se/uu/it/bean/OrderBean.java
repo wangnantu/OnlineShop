@@ -10,6 +10,7 @@ public class OrderBean {
     private int id;
     private int user_id;
     private String orderdate;
+    private Boolean paid;
 
     public int getId() {
         return id;
@@ -33,6 +34,14 @@ public class OrderBean {
 
     public void setOrderdate(String orderdate) {
         this.orderdate = orderdate;
+    }
+    
+     public Boolean getPaid() {
+        return paid;
+    }
+
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
     }
     
 }
