@@ -5,7 +5,10 @@
 package se.uu.it.servlet;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -13,9 +16,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import se.uu.it.bean.OrderBean;
 import se.uu.it.bean.ProductBean;
+import se.uu.it.dao.OrderDao;
 import se.uu.it.dao.ProductDao;
+import se.uu.it.dao.UserDao;
+import se.uu.it.dao.impl.OrderDaoImpl;
 import se.uu.it.dao.impl.ProductDaoImpl;
+import se.uu.it.dao.impl.UserDaoImpl;
 
 /**
  *
@@ -54,6 +62,28 @@ public class ShoppingServlet extends HttpServlet {
     
     public void add(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+                     String username = (String)request.getSession().getAttribute("username");
+                     UserDao uDao = new UserDaoImpl();
+                     int use_id = uDao.getIdFromUser(username);
+                     Date date = new Date();
+                     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
+                     String order_date = sf.format(date);
+                     OrderBean order = new OrderBean();
+                     order.setUser_id(use_id);
+                     order.setOrderdate(order_date);
+                     String[] products = request.getParameterValues("products");
+                     List list = Arrays.asList(products);
+                     List<Integer> quaList = new ArrayList<Integer>();
+                     for(int i=0;i<list.size();i++){
+                         String qu = list.get(i)+"+quantity";
+                         int quantity = Integer.parseInt((String)request.getParameter(qu));
+                         quaList.add(quantity);
+                     }
+                     OrderDao oDao = new OrderDaoImpl();
+                     oDao.save(order, list, quaList);
+                     RequestDispatcher rd = null; 
+                      ServletContext sc = getServletContext(); 
+                      rd = sc.getRequestDispatcher("/shopping.html?action=list");    
+                      rd.forward(request, response); 
     }
 }

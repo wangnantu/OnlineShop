@@ -8,5 +8,6 @@ public interface UserDao {
 	public void update(UserBean user);
 	public void delete(UserBean user);
 	public String getPasswordFromUser(String username);
+                          public Integer getIdFromUser(String username);
 	
 }

@@ -257,13 +257,13 @@ public class ProductDaoImpl  implements ProductDao  {
     }
     
     public Integer getProductIdByName(String name){
-        String sql2 = " select id from product where name = ?";
+        String sql = " select id from product where name = ?";
         DBUtil util = new DBUtil();
         Connection conn = util.getConnection();
         try {
-                PreparedStatement pstmt1 = conn.prepareStatement(sql2);
-                pstmt1.setString(1,name);
-                ResultSet rs = pstmt1.executeQuery();
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1,name);
+                ResultSet rs = pstmt.executeQuery();
                 int product_id = 0;
                 while(rs.next()){
                 product_id = rs.getInt(1);

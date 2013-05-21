@@ -30,7 +30,6 @@
             </c:choose>
             </div>
             <br/>
-            <br/>
             <h2 align="center">Product</h2>
             <form method="POST" action="shopping.html?action=add">
             <table border="1" cellspacing="5" align="center">
@@ -44,7 +43,7 @@
                 <tr>
                      <td>${product.name}</td>
                      <td>${product.price}</td>
-                     <td align="center"><input type="text" name="${product.name}+quantity" size="2" ></td>
+                     <td align="center"><input type="text" name="${product.id}+quantity" size="2" ></td>
                      <td><input type="checkbox" name="products" value="${product.id}"></td>
                 </tr>     
            </c:forEach>

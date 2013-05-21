@@ -71,4 +71,25 @@ public class UserDaoImpl implements UserDao {
 		
 	}
 
+    public Integer getIdFromUser(String username) {
+        String sql = " select id from user where username = ? ";
+        DBUtil util = new DBUtil();
+        Connection conn = util.getConnection();
+        try {
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1,username);
+                ResultSet rs = pstmt.executeQuery();
+                 while(rs.next()){
+	int id = rs.getInt(1);
+	return id;
+                    }
+                } catch (SQLException e) {
+	e.printStackTrace();
+                }finally{
+	util.closeConnection(conn);
+                }
+	return null;
+		
+    }
+
 }
