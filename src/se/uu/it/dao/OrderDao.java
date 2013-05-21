@@ -12,8 +12,10 @@ import se.uu.it.bean.OrderBean;
  * @author wnt
  */
 public interface OrderDao {
-    public void save(OrderBean order, List<String>  products,  List<Integer> quantity);
-    public void update();
+    public void save(OrderBean order, List<String>  products,  List<Integer> quaList);
+    public void add(OrderBean order, List<String>  products,  List<Integer> quaList);
     public void delete();
     public void list();
+    public Boolean haveUnpaidOrder(int user_id);
+    public OrderBean getUnPaidOrderByUserId(int user_id);
 }

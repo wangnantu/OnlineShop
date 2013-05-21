@@ -64,12 +64,12 @@ public class ShoppingServlet extends HttpServlet {
             throws ServletException, IOException {
                      String username = (String)request.getSession().getAttribute("username");
                      UserDao uDao = new UserDaoImpl();
-                     int use_id = uDao.getIdFromUser(username);
+                     int user_id = uDao.getIdFromUser(username);
                      Date date = new Date();
                      SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
                      String order_date = sf.format(date);
                      OrderBean order = new OrderBean();
-                     order.setUser_id(use_id);
+                     order.setUser_id(user_id);
                      order.setOrderdate(order_date);
                      String[] products = request.getParameterValues("products");
                      List list = Arrays.asList(products);
@@ -80,7 +80,12 @@ public class ShoppingServlet extends HttpServlet {
                          quaList.add(quantity);
                      }
                      OrderDao oDao = new OrderDaoImpl();
+                     if(oDao.haveUnpaidOrder(user_id)){
+                         OrderBean order1 = oDao.getUnPaidOrderByUserId(user_id);
+                         oDao.add(order1,list,quaList);
+                     }else{
                      oDao.save(order, list, quaList);
+                     }
                      RequestDispatcher rd = null; 
                       ServletContext sc = getServletContext(); 
                       rd = sc.getRequestDispatcher("/shopping.html?action=list");    
