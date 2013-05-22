@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import se.uu.it.bean.OrderBean;
+import se.uu.it.bean.ProductBean;
 import se.uu.it.dao.OrderDao;
 import se.uu.it.util.DBUtil;
 
@@ -137,10 +138,77 @@ public class OrderDaoImpl implements OrderDao{
         }
     }
 
-    public void delete() {
+    public void deleteProduct(int order_id,int product_id) {
+        String sql = " delete from order_product where order_id = ? and product_id = ? ";
+        DBUtil util = new DBUtil();
+        Connection conn = util.getConnection();
+          try {
+	conn.setAutoCommit(false);
+                    } catch (SQLException e2) {
+	e2.printStackTrace();
+                   }
+        try {
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1,order_id);
+                pstmt.setInt(2,product_id);
+                pstmt.executeUpdate();
+                conn.commit();
+                } catch (SQLException ex) {
+                   ex.printStackTrace();
+                    try {
+                        conn.rollback();
+                    } catch (SQLException ex1) {
+                        ex1.printStackTrace();
+                    }                                            
+                }finally{
+         util.closeConnection(conn);
+     }
+     
     }
 
-    public void list() {
+    //return products list by order id
+    public List<ProductBean> getProductListByOrderId(int order_id) {
+        String sql = " select  product_id, name , price from order_product, product where order_id = ? and product_id = product.id order by product_id";
+        DBUtil util = new DBUtil();
+        Connection conn = util.getConnection();
+        try {
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1,order_id);
+                ResultSet rs = pstmt.executeQuery();
+                List<ProductBean>  products = new ArrayList<ProductBean>();
+                while(rs.next()){
+                    ProductBean product = new ProductBean();
+                    product.setId(rs.getInt(1));
+                    product.setName(rs.getString(2));
+                    product.setPrice(rs.getFloat(3));
+                    products.add(product);
+                }
+                return products;
+        }catch (SQLException e) {
+                   e.printStackTrace();
+                    }
+            return null;
+    }
+    
+    //return quantites of  products by order id
+    public List<Integer> getUnPaidQuaList(int order_id){
+        String sql = " select quantity from order_product where order_id = ? order by product_id";
+        DBUtil util = new DBUtil();
+        Connection conn = util.getConnection();
+        try {
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1,order_id);
+                ResultSet rs = pstmt.executeQuery();
+                List<Integer> quaList = new ArrayList<Integer>();
+                while(rs.next()){
+                    int quantity = rs.getInt(1);
+                    quaList.add(quantity);
+                }
+                return quaList;
+        }catch (SQLException e) {
+                   e.printStackTrace();
+                    }
+        return null;
     }
     
     public Integer getOrderId(int user_id, String order_date){

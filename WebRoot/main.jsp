@@ -22,7 +22,7 @@
         <c:when test="${login}">
             <%=session.getAttribute("username")%>
             <br/>
-            <a href="myOrder.jsp">My Cart</a>
+            <a href="order.html">My Cart</a>
         </c:when>
         <c:otherwise>
             <a href="login.jsp">login</a>

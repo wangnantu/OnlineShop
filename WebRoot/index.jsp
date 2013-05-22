@@ -21,6 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    Welcome, <%= session.getAttribute("username") %> <br>
+    Welcome<br>
+    <a href ="shopping.html">Go Shopping</a>
   </body>
 </html>
