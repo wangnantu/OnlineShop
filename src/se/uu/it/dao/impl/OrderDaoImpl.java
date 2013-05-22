@@ -138,6 +138,33 @@ public class OrderDaoImpl implements OrderDao{
         }
     }
 
+    public void update(int order_id, int product_id, int quantity){
+        String sql = " update order_product set quantity = ? where order_id=? and product_id=? ";
+        DBUtil util = new DBUtil();
+        Connection conn = util.getConnection();
+          try {
+	conn.setAutoCommit(false);
+                    } catch (SQLException e2) {
+	e2.printStackTrace();
+                   }
+          try {
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1, quantity);
+                pstmt.setInt(2,order_id);
+                pstmt.setInt(3,product_id);
+                 pstmt.executeUpdate();
+                conn.commit();
+                } catch (SQLException ex) {
+                   ex.printStackTrace();
+                    try {
+                        conn.rollback();
+                    } catch (SQLException ex1) {
+                        ex1.printStackTrace();
+                    }                                            
+                }finally{
+         util.closeConnection(conn);
+          }
+    }
     public void deleteProduct(int order_id,int product_id) {
         String sql = " delete from order_product where order_id = ? and product_id = ? ";
         DBUtil util = new DBUtil();
@@ -309,5 +336,31 @@ public class OrderDaoImpl implements OrderDao{
                    e.printStackTrace();
                     }
             return null;
+    }
+    
+    public void payOrder(int order_id){
+        String sql = " update `order` set paid = true where id = ?";
+        DBUtil util = new DBUtil();
+        Connection conn = util.getConnection();
+          try {
+	conn.setAutoCommit(false);
+                    } catch (SQLException e2) {
+	e2.printStackTrace();
+                   }
+          try {
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1,order_id);
+                 pstmt.executeUpdate();
+                conn.commit();
+                } catch (SQLException ex) {
+                   ex.printStackTrace();
+                    try {
+                        conn.rollback();
+                    } catch (SQLException ex1) {
+                        ex1.printStackTrace();
+                    }                                            
+                }finally{
+         util.closeConnection(conn);
+          }
     }
 }

@@ -15,7 +15,7 @@
     </head>
     <body>
         <h2 align =" center">My Cart</h2>
-        <form method="POST" action="shopping.html?action=add">
+        <form method="POST" action="order.html?action=checkout">
             <table border="0" cellspacing="5" align="center">
                 <tr>
                     <th>&nbsp&nbsp;ID&nbsp&nbsp;</th>
@@ -36,7 +36,7 @@
                     <td>&nbsp&nbsp;<%=product.getId()%>&nbsp&nbsp;</td>
                     <td>&nbsp&nbsp;<%=product.getName()%>&nbsp&nbsp;</td>
                     <td>&nbsp&nbsp;<%=product.getPrice()%>&nbsp&nbsp;</td>
-                    <td>&nbsp&nbsp;<input type="text" name="${product.id}+quantity" size="2"  value="<%=quantity%>">&nbsp&nbsp;</td>
+                    <td>&nbsp&nbsp;<input type="text" name="<%=product.getId()%>+quantity" size="2"  value="<%=quantity%>">&nbsp&nbsp;</td>
                     <td><a href="order.html?action=delete&id=<%=product.getId()%>">Delete</a></td>
                 </tr>
                 <%}%>
