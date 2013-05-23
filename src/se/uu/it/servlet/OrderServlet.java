@@ -32,14 +32,18 @@ public class OrderServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
                         String action = request.getParameter("action");
-                                     if(action == null || action.equals("list")){
-                                         this.list(request, response);
+                                     if(action == null || action.equals("listCart")){
+                                         this.listCart(request, response);
                                     }else if(action != null &&action.equals("delete")){
                                          this.delete(request, response);
                                    }else if(action != null &&action.equals("checkout")){
                                          this.checkout(request, response);
                                    }else if(action !=null && action.equals("pay")){
                                         this.pay(request, response);
+                                   }else if(action != null && action.equals("list")){
+                                       this.list(request, response);
+                                   }else if(action != null && action.equals("detail")){
+                                       this.detail(request, response);
                                    }
     }
     
@@ -48,7 +52,7 @@ public class OrderServlet extends HttpServlet {
             throws ServletException, IOException {
                         doGet(request,response);
     }
-    public void list(HttpServletRequest request, HttpServletResponse response)
+    public void listCart(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
                 String username = (String)request.getSession().getAttribute("username");
                 UserDao uDao = new UserDaoImpl();
@@ -77,7 +81,7 @@ public class OrderServlet extends HttpServlet {
         oDao.deleteProduct(order_id,product_id);
         RequestDispatcher rd = null; 
         ServletContext sc = getServletContext(); 
-        rd = sc.getRequestDispatcher("/order.html?action=list"); 
+        rd = sc.getRequestDispatcher("/order.html?action=listCart"); 
         rd.forward(request, response); 
     }
 
@@ -147,4 +151,33 @@ public class OrderServlet extends HttpServlet {
         }
     }
     
+    public void list(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+            OrderDao oDao = new OrderDaoImpl();
+            List<OrderBean> orderList = oDao.list();
+            request.setAttribute("orderList", orderList);
+            RequestDispatcher rd = null; 
+            ServletContext sc = getServletContext(); 
+            rd = sc.getRequestDispatcher("/orderList.jsp");    
+            rd.forward(request, response); 
+    }
+    public void detail(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+             int id = Integer.parseInt(request.getParameter("id"));
+             OrderDao oDao = new OrderDaoImpl();
+             List<ProductBean> products = oDao.getProductListByOrderId(id);
+             List<Integer> quaList = oDao.getUnPaidQuaList(id);
+             request.setAttribute("products", products);
+             request.setAttribute("quaList", quaList);
+             
+             RequestDispatcher rd = null; 
+             ServletContext sc = getServletContext(); 
+             rd = sc.getRequestDispatcher("/orderDetail.jsp");    
+             rd.forward(request, response); 
+    }
+    
+    public void prepare(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+    }
 }

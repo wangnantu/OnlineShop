@@ -88,7 +88,7 @@ public class ShoppingServlet extends HttpServlet {
                      }
                      RequestDispatcher rd = null; 
                       ServletContext sc = getServletContext(); 
-                      rd = sc.getRequestDispatcher("/order.html?action=list");    
+                      rd = sc.getRequestDispatcher("/order.html?action=listCart");    
                       rd.forward(request, response); 
     }
 }

@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import se.uu.it.bean.OrderBean;
@@ -362,5 +363,32 @@ public class OrderDaoImpl implements OrderDao{
                 }finally{
          util.closeConnection(conn);
           }
+    }
+    
+    public List<OrderBean> list(){
+        String sql = "select * from `order` where paid = true and delivered = false";
+        DBUtil util = new DBUtil();
+        Connection conn = util.getConnection();
+        ArrayList<OrderBean> orderList = new ArrayList<OrderBean>();
+        try {
+	Statement stmt = conn.createStatement();
+	ResultSet rs = stmt.executeQuery(sql);
+	while(rs.next()){
+                                int id = rs.getInt(1);
+                                int user_id = rs.getInt(2);
+                                String orderdate = rs.getString(3);
+                                OrderBean order =new OrderBean();
+                                order.setId(id);
+                                order.setUser_id(user_id);
+                                order.setOrderdate(orderdate);
+                                order.setPaid(Boolean.TRUE);
+                                order.setDelivered(Boolean.FALSE);
+                                orderList.add(order);
+                          }
+                          return orderList;
+        }catch (SQLException e) {
+	e.printStackTrace();
+	}
+	return null;
     }
 }

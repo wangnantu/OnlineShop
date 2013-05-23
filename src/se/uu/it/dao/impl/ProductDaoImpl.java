@@ -211,7 +211,6 @@ public class ProductDaoImpl  implements ProductDao  {
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                 pstmt.setInt(1,id);
                 pstmt.executeUpdate();
-                conn.commit();
                 pstmt = conn.prepareStatement(sql2);
                 pstmt.setInt(1,id);
                 pstmt.executeUpdate();

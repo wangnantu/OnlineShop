@@ -1,6 +1,6 @@
 <%-- 
-    Document   : myOrder
-    Created on : 2013-5-22, 12:56:23
+    Document   : orderDetail
+    Created on : 2013-5-23, 16:33:13
     Author     : wnt
 --%>
 
@@ -11,18 +11,19 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>My Cart</title>
+        <title>Order Detail</title>
     </head>
     <body>
-        <h2 align =" center">My Cart</h2>
-        <form method="POST" action="order.html?action=checkout">
-            <table border="0" cellspacing="5" align="center">
+        <br>
+        <br>
+        <br>
+        <div align="center">
+            <h2>Order Detail</h2>
+        <table border="0" cellspacing="5" align="center">
                 <tr>
-                    <th>&nbsp&nbsp;ID&nbsp&nbsp;</th>
                     <th> &nbsp&nbsp;Name&nbsp&nbsp;  </th>
                     <th>  &nbsp&nbsp;Price&nbsp&nbsp;</th>
                      <th> &nbsp&nbsp;Quantity&nbsp&nbsp;</th>
-                     <th></th>
                 </tr>
                   <%
                 List products  = (List)request.getAttribute("products");
@@ -33,19 +34,13 @@
                     int quantity = (Integer)quaList.get(i);
                 %>
                 <tr>
-                    <td>&nbsp&nbsp;<%=product.getId()%>&nbsp&nbsp;</td>
                     <td>&nbsp&nbsp;<%=product.getName()%>&nbsp&nbsp;</td>
                     <td>&nbsp&nbsp;<%=product.getPrice()%>&nbsp&nbsp;</td>
-                    <td>&nbsp&nbsp;<input type="text" name="<%=product.getId()%>+quantity" size="2"  value="<%=quantity%>">&nbsp&nbsp;</td>
-                    <td><a href="order.html?action=delete&id=<%=product.getId()%>">Delete</a></td>
+                    <td align="center">&nbsp&nbsp;<%=quantity%>&nbsp&nbsp;</td>
                 </tr>
                 <%}%>
-                <tr/>
-                <tr/>
-                <tr>
-                    <td colspan="4" align="right"><input type="submit" value="Checkout"></td>
-                </tr>
-            </table>
-        </form>
+         </table>
+         <hr/>
+     </div>
     </body>
 </html>

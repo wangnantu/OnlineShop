@@ -21,6 +21,8 @@
         <a href="item.html" >Item Manage</a>
         <br>
         <a href="product.html">Product Manage</a>
+        <br>
+        <a href="order.html?action=list">Order Processing</a>
         </div>
     </body>
 </html>

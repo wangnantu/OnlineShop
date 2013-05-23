@@ -22,4 +22,5 @@ public interface OrderDao {
     public Boolean haveUnpaidOrder(int user_id);
     public OrderBean getUnPaidOrderByUserId(int user_id);
     public void payOrder(int order_id);
+    public List<OrderBean> list();
 }

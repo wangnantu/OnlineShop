@@ -11,6 +11,7 @@ public class OrderBean {
     private int user_id;
     private String orderdate;
     private Boolean paid;
+    private Boolean delivered;
 
     public int getId() {
         return id;
@@ -44,4 +45,11 @@ public class OrderBean {
         this.paid = paid;
     }
     
+      public Boolean getDelivered() {
+        return delivered;
+    }
+
+    public void setDelivered(Boolean delivered) {
+        this.delivered = delivered;
+    }
 }
