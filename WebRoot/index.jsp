@@ -21,7 +21,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    Welcome<br>
+      <div align="center">
+          <br/>
+          <br/>
+          <br/>
+    Welcome to OnlineShop<br>
     <a href ="shopping.html">Go Shopping</a>
+      </div>
   </body>
 </html>

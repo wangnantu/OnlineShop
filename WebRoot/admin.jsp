@@ -12,10 +12,15 @@
         <title>Admin</title>
     </head>
     <body>
+        <div align="center">
+            <br/>
+            <br/>
+            <br/>
         Welcome, <%= session.getAttribute("username") %>
         <br>
         <a href="item.html" >Item Manage</a>
         <br>
         <a href="product.html">Product Manage</a>
+        </div>
     </body>
 </html>
